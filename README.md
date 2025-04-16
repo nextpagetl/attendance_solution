@@ -31,7 +31,7 @@ sudo systemctl enable mongodb
 
 1. **Clone the Repository**:
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/nextpagetl/attendance_solution.git
    cd attendance-system
    ```
 
@@ -59,7 +59,7 @@ sudo systemctl enable mongodb
    ```bash
    npm run dev
    ```
-   - Opens `http://localhost:3000` (or `http://10.0.0.18:3000` on your network).
+   - Opens `http://localhost:3000` (or `http://0.0.0.0:3000` on your network).
    - Displays the dashboard for viewing attendance logs.
    - Auto-updates on changes to `app/` files.
 
@@ -71,10 +71,10 @@ sudo systemctl enable mongodb
    - Handles device communication (e.g., `AYSK15017220`).
 
 6. **Test Device Integration**:
-   - Configure AiFace device to connect to `ws://10.0.0.18:7792` with serial number `AYSK15017220`.
+   - Configure AiFace device to connect to `ws://0.0.0.0:7792` with serial number `AYSK15017220`.
    - Trigger a scan (fingerprint/card) or simulate:
      ```bash
-     wscat -c ws://10.0.0.18:7792
+     wscat -c ws://0.0.0.0:7792
      ```
      Send:
      ```json
@@ -89,7 +89,7 @@ sudo systemctl enable mongodb
      ```
 
 7. **Access Dashboard**:
-   - Visit `http://10.0.0.18:3000`.
+   - Visit `http://0.0.0.0:3000`.
    - Login with credentials (e.g., `admin`/`securepassword123`).
    - View logs for devices and companies.
 
@@ -114,7 +114,7 @@ sudo systemctl enable mongodb
    db.devices.insertOne({
      serialNumber: "AYSK15017220",
      companyId: ObjectId("<company_id>"),
-     apiUrl: "http://10.0.0.18:3000/api/logs",
+     apiUrl: "http://0.0.0.0:3000/api/logs",
      isActive: true,
      createdAt: new Date(),
      updatedAt: new Date()
@@ -158,8 +158,8 @@ Contribute at [your GitHub repo](#) - feedback welcome!
 ### Prerequisites
 
 - DigitalOcean Droplet (Ubuntu 22.04, 8 GB RAM recommended).
-- Domain: `fintrack360.com` (IP `142.93.214.71`).
-- SSH access: `root@142.93.214.71`.
+- Domain: `example.com` (IP `000.000.000.000`).
+- SSH access: `root@000.000.000.000`.
 
 ### Deployment Steps
 
@@ -167,7 +167,7 @@ Contribute at [your GitHub repo](#) - feedback welcome!
    - Create an Ubuntu 22.04 Droplet.
    - SSH:
      ```bash
-     ssh root@142.93.214.71
+     ssh root@000.000.000.000
      ```
 
 2. **Install Dependencies**:
@@ -181,12 +181,12 @@ Contribute at [your GitHub repo](#) - feedback welcome!
 
 3. **Copy Project**:
    ```bash
-   scp -r /home/nextpage/Public/attendance_server/attendance-system root@142.93.214.71:~/node_websocket/
+   scp -r /home/nextpage/Public/attendance_server/attendance-system root@000.000.000.000:~/node_websocket/
    ```
 
 4. **Configure Project**:
    ```bash
-   ssh root@142.93.214.71
+   ssh root@000.000.000.000
    cd ~/node_websocket
    rm -rf .next node_modules package-lock.json
    npm install
@@ -217,12 +217,12 @@ Contribute at [your GitHub repo](#) - feedback welcome!
 
 7. **Configure Nginx**:
    ```bash
-   sudo nano /etc/nginx/sites-available/fintrack360
+   sudo nano /etc/nginx/sites-available/example
    ```
    ```nginx
    server {
      listen 80;
-     server_name fintrack360.com 142.93.214.71;
+     server_name example.com 000.000.000.000;
 
      location / {
        proxy_pass http://localhost:3000;
@@ -243,7 +243,7 @@ Contribute at [your GitHub repo](#) - feedback welcome!
    }
    ```
    ```bash
-   sudo ln -s /etc/nginx/sites-available/fintrack360 /etc/nginx/sites-enabled/
+   sudo ln -s /etc/nginx/sites-available/example /etc/nginx/sites-enabled/
    sudo nginx -t
    sudo systemctl restart nginx
    ```
@@ -251,18 +251,18 @@ Contribute at [your GitHub repo](#) - feedback welcome!
 8. **Secure with SSL**:
    ```bash
    sudo apt install -y certbot python3-certbot-nginx
-   sudo certbot --nginx -d fintrack360.com
+   sudo certbot --nginx -d example.com
    ```
 
 9. **Test Deployment**:
    - WebSocket:
      ```bash
-     wscat -c ws://142.93.214.71:7792
+     wscat -c ws://000.000.000.000:7792
      ```
      ```json
      {"cmd":"reg","sn":"AYSK15017220"}
      ```
-   - Dashboard: Visit `https://fintrack360.com`.
+   - Dashboard: Visit `https://example.com`.
    - Logs:
      ```bash
      tail -f ~/node_websocket/logs/websocket.log
@@ -279,8 +279,8 @@ Contribute at [your GitHub repo](#) - feedback welcome!
 
 ### Verify Deployment
 
-- **Device**: Connect AiFace to `ws://142.93.214.71:7792`, check logs.
-- **Dashboard**: Login at `https://fintrack360.com`, view logs.
+- **Device**: Connect AiFace to `ws://000.000.000.000:7792`, check logs.
+- **Dashboard**: Login at `https://example.com`, view logs.
 - **Retry Logic**:
   ```bash
   mongosh
@@ -288,7 +288,7 @@ Contribute at [your GitHub repo](#) - feedback welcome!
   ```javascript
   db.devices.updateOne(
     { serialNumber: "AYSK15017220" },
-    { $set: { apiUrl: "http://142.93.214.71:9999/api/logs" } }
+    { $set: { apiUrl: "http://000.000.000.000:9999/api/logs" } }
   )
   ```
   - Send log, verify retries:
@@ -299,7 +299,7 @@ Contribute at [your GitHub repo](#) - feedback welcome!
     ```javascript
     db.devices.updateOne(
       { serialNumber: "AYSK15017220" },
-      { $set: { apiUrl: "http://142.93.214.71:3000/api/logs" } }
+      { $set: { apiUrl: "http://000.000.000.000:3000/api/logs" } }
     )
     ```
 

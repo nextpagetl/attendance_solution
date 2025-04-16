@@ -327,8 +327,5 @@ Contribute at [your GitHub repo](#) - feedback welcome!
   sudo systemctl status nginx
   ```
 
-Contact support at [your-email] or open an issue at [your-repo].
-
----
-
-This `DEPLOYMENT.md` provides clear instructions for setting up, running, and deploying your attendance system, tailored to your tech stack and requirements. It ensures `AYSK15017220` and other devices work, with retry logic for log forwarding, and scales for 1000+ devices. Let me know if you need tweaks or further details!
+Contact support at akram@nextpagetl.com or open an issue at [\[attendance_solution
+\]](https://github.com/nextpagetl/attendance_solution.git).

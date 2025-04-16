@@ -1480,3 +1480,138 @@
 2025-04-16T07:54:38.246Z - Sent: {"cmd":"getalllog","stn":false}
 2025-04-16T07:54:38.257Z - Received: {"ret":"getalllog","sn":"AYSK15017220","result":true,"count":0,"from":0,"to":0,"record":[]}
 2025-04-16T07:54:38.262Z - Retrieved all logs for today or no logs available
+2025-04-16T08:15:12.805Z - MongoDB connected for WebSocket server
+2025-04-16T08:15:12.808Z - WebSocket server started on ws://0.0.0.0:7792
+2025-04-16T08:15:14.313Z - Device connected from ::ffff:10.0.0.24
+2025-04-16T08:15:14.340Z - Received: {"cmd":"reg","sn":"AYSK15017220","devinfo":{"modelname":"AiFace","manufacturer":"","usersize":10000,"facesize":5000,"fpsize":10000,"palmsize":0,"cardsize":10000,"pwdsize":10000,"logsize":1000000,"useduser":6,"usedface":0,"usedfp":3,"usedpalm":0,"usedcard":3,"usedpwd":1,"usedlog":55,"usednewlog":55,"usedrtlog":0,"netinuse":1,"usb4g":0,"fpalgo":"thbio3.0","firmware":"ai518_fp43h_v2.05","time":"2025-04-16 08:15:14","intercom":0,"floors":48,"charid":0,"useosdp":0,"dislanguage":33554433,"curip":"010.000.000.024","mac":"00-01-F5-01-BA-FC"}}
+2025-04-16T08:28:47.672Z - WebSocket server started on ws://0.0.0.0:7792
+2025-04-16T08:28:47.943Z - Device connected from ::ffff:10.0.0.24
+2025-04-16T08:28:47.964Z - Received: {"cmd":"reg","sn":"AYSK15017220","devinfo":{"modelname":"AiFace","manufacturer":"","usersize":10000,"facesize":5000,"fpsize":10000,"palmsize":0,"cardsize":10000,"pwdsize":10000,"logsize":1000000,"useduser":6,"usedface":0,"usedfp":3,"usedpalm":0,"usedcard":3,"usedpwd":1,"usedlog":55,"usednewlog":55,"usedrtlog":0,"netinuse":1,"usb4g":0,"fpalgo":"thbio3.0","firmware":"ai518_fp43h_v2.05","time":"2025-04-16 08:28:48","intercom":0,"floors":48,"charid":0,"useosdp":0,"dislanguage":33554433,"curip":"010.000.000.024","mac":"00-01-F5-01-BA-FC"}}
+2025-04-16T08:28:47.975Z - Sent: {"ret":"reg","result":true,"sn":"AYSK15017220","cloudtime":"2025-04-16 08:28:47","nosenduser":true}
+2025-04-16T08:28:47.975Z - Sent: {"cmd":"getalllog","stn":true,"from":"2025-04-16","to":"2025-04-16"}
+2025-04-16T08:28:47.999Z - Received: {"ret":"getalllog","sn":"AYSK15017220","result":true,"count":3,"from":0,"to":3,"record":[{"enrollid":3,"name":"","time":"2025-04-16 07:29:42","mode":3,"inout":0,"event":0},{"enrollid":5,"name":"","time":"2025-04-16 07:36:05","mode":3,"inout":0,"event":0},{"enrollid":4,"name":"","time":"2025-04-16 07:36:10","mode":3,"inout":0,"event":0}]}
+2025-04-16T08:28:48.006Z - No new logs to save from getalllog
+2025-04-16T08:28:48.006Z - Sent: {"cmd":"getalllog","stn":false}
+2025-04-16T08:28:48.017Z - Received: {"ret":"getalllog","sn":"AYSK15017220","result":true,"count":0,"from":0,"to":0,"record":[]}
+2025-04-16T08:28:48.020Z - Retrieved all logs for today or no logs available
+2025-04-16T08:29:04.654Z - Received: {"cmd":"sendlog","sn":"AYSK15017220","count":1,"logindex":0,"record":[{"enrollid":4,"name":"","time":"2025-04-16 08:29:04","mode":3,"inout":0,"event":0}]}
+2025-04-16T08:29:05.075Z - Failed to forward log 67ff6a5065e095e65151b68f to https://eduguard360.com/attendance: Request failed with status code 404, retry 1
+2025-04-16T08:29:05.075Z - Saved 1 new logs from sendlog
+2025-04-16T08:29:05.075Z - Sent: {"ret":"sendlog","result":true,"count":1,"logindex":0,"cloudtime":"2025-04-16 08:29:05","access":1}
+2025-04-16T08:29:19.265Z - Received: {"cmd":"sendlog","sn":"AYSK15017220","count":1,"logindex":0,"record":[{"enrollid":5,"name":"","time":"2025-04-16 08:29:19","mode":3,"inout":0,"event":0}]}
+2025-04-16T08:29:19.556Z - Failed to forward log 67ff6a5f65e095e65151b696 to https://eduguard360.com/attendance: Request failed with status code 404, retry 1
+2025-04-16T08:29:19.556Z - Saved 1 new logs from sendlog
+2025-04-16T08:29:19.556Z - Sent: {"ret":"sendlog","result":true,"count":1,"logindex":0,"cloudtime":"2025-04-16 08:29:19","access":1}
+2025-04-16T08:29:28.695Z - Received: {"cmd":"sendlog","sn":"AYSK15017220","count":1,"logindex":0,"record":[{"enrollid":3,"name":"","time":"2025-04-16 08:29:28","mode":3,"inout":0,"event":0}]}
+2025-04-16T08:29:28.976Z - Failed to forward log 67ff6a6865e095e65151b69d to https://eduguard360.com/attendance: Request failed with status code 404, retry 1
+2025-04-16T08:29:28.976Z - Saved 1 new logs from sendlog
+2025-04-16T08:29:28.976Z - Sent: {"ret":"sendlog","result":true,"count":1,"logindex":0,"cloudtime":"2025-04-16 08:29:28","access":1}
+2025-04-16T08:33:47.696Z - Retrying 3 pending/failed logs
+2025-04-16T08:33:50.046Z - Failed to forward log 67ff6a5065e095e65151b68f to https://eduguard360.com/attendance: Request failed with status code 404, retry 2
+2025-04-16T08:33:52.332Z - Failed to forward log 67ff6a5f65e095e65151b696 to https://eduguard360.com/attendance: Request failed with status code 404, retry 2
+2025-04-16T08:33:54.674Z - Failed to forward log 67ff6a6865e095e65151b69d to https://eduguard360.com/attendance: Request failed with status code 404, retry 2
+2025-04-16T08:33:54.675Z - Retrying 3 pending/failed logs
+2025-04-16T08:33:59.000Z - Failed to forward log 67ff6a5065e095e65151b68f to https://eduguard360.com/attendance: Request failed with status code 404, retry 3
+2025-04-16T08:34:03.343Z - Failed to forward log 67ff6a5f65e095e65151b696 to https://eduguard360.com/attendance: Request failed with status code 404, retry 3
+2025-04-16T08:34:07.630Z - Failed to forward log 67ff6a6865e095e65151b69d to https://eduguard360.com/attendance: Request failed with status code 404, retry 3
+2025-04-16T08:34:07.631Z - Retrying 3 pending/failed logs
+2025-04-16T08:34:15.899Z - Failed to forward log 67ff6a5065e095e65151b68f to https://eduguard360.com/attendance: Request failed with status code 404, retry 4
+2025-04-16T08:34:24.180Z - Failed to forward log 67ff6a5f65e095e65151b696 to https://eduguard360.com/attendance: Request failed with status code 404, retry 4
+2025-04-16T08:34:32.497Z - Failed to forward log 67ff6a6865e095e65151b69d to https://eduguard360.com/attendance: Request failed with status code 404, retry 4
+2025-04-16T08:34:32.498Z - Retrying 3 pending/failed logs
+2025-04-16T08:34:48.773Z - Failed to forward log 67ff6a5065e095e65151b68f to https://eduguard360.com/attendance: Request failed with status code 404, retry 5
+2025-04-16T08:35:05.056Z - Failed to forward log 67ff6a5f65e095e65151b696 to https://eduguard360.com/attendance: Request failed with status code 404, retry 5
+2025-04-16T08:35:21.330Z - Failed to forward log 67ff6a6865e095e65151b69d to https://eduguard360.com/attendance: Request failed with status code 404, retry 5
+2025-04-16T08:35:21.332Z - Retrying 3 pending/failed logs
+2025-04-16T08:35:39.781Z - WebSocket server started on ws://0.0.0.0:7792
+2025-04-16T08:35:39.793Z - Retrying 3 pending/failed logs
+2025-04-16T08:35:41.653Z - Device connected from ::ffff:10.0.0.24
+2025-04-16T08:35:41.675Z - Received: {"cmd":"reg","sn":"AYSK15017220","devinfo":{"modelname":"AiFace","manufacturer":"","usersize":10000,"facesize":5000,"fpsize":10000,"palmsize":0,"cardsize":10000,"pwdsize":10000,"logsize":1000000,"useduser":6,"usedface":0,"usedfp":3,"usedpalm":0,"usedcard":3,"usedpwd":1,"usedlog":60,"usednewlog":60,"usedrtlog":2,"netinuse":1,"usb4g":0,"fpalgo":"thbio3.0","firmware":"ai518_fp43h_v2.05","time":"2025-04-16 08:35:41","intercom":0,"floors":48,"charid":0,"useosdp":0,"dislanguage":33554433,"curip":"010.000.000.024","mac":"00-01-F5-01-BA-FC"}}
+2025-04-16T08:35:41.683Z - Sent: {"ret":"reg","result":true,"sn":"AYSK15017220","cloudtime":"2025-04-16 08:35:41","nosenduser":true}
+2025-04-16T08:35:41.684Z - Sent: {"cmd":"getalllog","stn":true,"from":"2025-04-16","to":"2025-04-16"}
+2025-04-16T08:35:41.699Z - Received: {"cmd":"sendlog","sn":"AYSK15017220","count":2,"logindex":0,"record":[{"enrollid":3,"name":"","time":"2025-04-16 08:35:26","mode":3,"inout":0,"event":0},{"enrollid":5,"name":"","time":"2025-04-16 08:35:33","mode":3,"inout":0,"event":0}]}
+2025-04-16T08:35:41.742Z - Received: {"ret":"getalllog","sn":"AYSK15017220","result":true,"count":8,"from":0,"to":8,"record":[{"enrollid":3,"name":"","time":"2025-04-16 07:29:42","mode":3,"inout":0,"event":0},{"enrollid":5,"name":"","time":"2025-04-16 07:36:05","mode":3,"inout":0,"event":0},{"enrollid":4,"name":"","time":"2025-04-16 07:36:10","mode":3,"inout":0,"event":0},{"enrollid":4,"name":"","time":"2025-04-16 08:29:04","mode":3,"inout":0,"event":0},{"enrollid":5,"name":"","time":"2025-04-16 08:29:19","mode":3,"inout":0,"event":0},{"enrollid":3,"name":"","time":"2025-04-16 08:29:28","mode":3,"inout":0,"event":0},{"enrollid":3,"name":"","time":"2025-04-16 08:35:26","mode":3,"inout":0,"event":0},{"enrollid":5,"name":"","time":"2025-04-16 08:35:33","mode":3,"inout":0,"event":0}]}
+2025-04-16T08:35:41.746Z - No new logs to save from getalllog
+2025-04-16T08:35:41.746Z - Sent: {"cmd":"getalllog","stn":false}
+2025-04-16T08:35:41.757Z - Received: {"ret":"getalllog","sn":"AYSK15017220","result":true,"count":0,"from":0,"to":0,"record":[]}
+2025-04-16T08:35:41.760Z - Retrieved all logs for today or no logs available
+2025-04-16T08:35:42.015Z - Failed to forward log 67ff6bdd8efae47611085676 to https://eduguard360.com/attendance: Request failed with status code 404, retry 1
+2025-04-16T08:35:42.015Z - Saved 2 new logs from sendlog
+2025-04-16T08:35:42.015Z - Sent: {"ret":"sendlog","result":true,"count":2,"logindex":0,"cloudtime":"2025-04-16 08:35:42","access":1}
+2025-04-16T08:36:12.074Z - Failed to forward log 67ff6a5065e095e65151b68f to https://eduguard360.com/attendance: Request failed with status code 404, retry 6
+2025-04-16T08:36:44.360Z - Failed to forward log 67ff6a5f65e095e65151b696 to https://eduguard360.com/attendance: Request failed with status code 404, retry 6
+2025-04-16T08:37:16.651Z - Failed to forward log 67ff6a6865e095e65151b69d to https://eduguard360.com/attendance: Request failed with status code 404, retry 6
+2025-04-16T08:37:16.652Z - Retrying 4 pending/failed logs
+2025-04-16T08:38:16.941Z - Failed to forward log 67ff6a5065e095e65151b68f to https://eduguard360.com/attendance: Request failed with status code 404, retry 7
+2025-04-16T08:39:17.239Z - Failed to forward log 67ff6a5f65e095e65151b696 to https://eduguard360.com/attendance: Request failed with status code 404, retry 7
+2025-04-16T08:40:17.530Z - Failed to forward log 67ff6a6865e095e65151b69d to https://eduguard360.com/attendance: Request failed with status code 404, retry 7
+2025-04-16T08:40:19.819Z - Failed to forward log 67ff6bdd8efae47611085676 to https://eduguard360.com/attendance: Request failed with status code 404, retry 2
+2025-04-16T08:40:19.820Z - Retrying 4 pending/failed logs
+2025-04-16T08:41:20.117Z - Failed to forward log 67ff6a5065e095e65151b68f to https://eduguard360.com/attendance: Request failed with status code 404, retry 8
+2025-04-16T08:42:20.488Z - Failed to forward log 67ff6a5f65e095e65151b696 to https://eduguard360.com/attendance: Request failed with status code 404, retry 8
+2025-04-16T08:43:20.771Z - Failed to forward log 67ff6a6865e095e65151b69d to https://eduguard360.com/attendance: Request failed with status code 404, retry 8
+2025-04-16T08:43:25.047Z - Failed to forward log 67ff6bdd8efae47611085676 to https://eduguard360.com/attendance: Request failed with status code 404, retry 3
+2025-04-16T08:43:25.048Z - Retrying 4 pending/failed logs
+2025-04-16T08:44:25.416Z - Failed to forward log 67ff6a5065e095e65151b68f to https://eduguard360.com/attendance: Request failed with status code 404, retry 9
+2025-04-16T08:45:25.708Z - Failed to forward log 67ff6a5f65e095e65151b696 to https://eduguard360.com/attendance: Request failed with status code 404, retry 9
+2025-04-16T08:46:25.992Z - Failed to forward log 67ff6a6865e095e65151b69d to https://eduguard360.com/attendance: Request failed with status code 404, retry 9
+2025-04-16T08:46:34.278Z - Failed to forward log 67ff6bdd8efae47611085676 to https://eduguard360.com/attendance: Request failed with status code 404, retry 4
+2025-04-16T08:46:34.279Z - Retrying 4 pending/failed logs
+2025-04-16T08:47:34.560Z - Failed to forward log 67ff6a5065e095e65151b68f to https://eduguard360.com/attendance: Request failed with status code 404, retry 10
+2025-04-16T08:48:34.894Z - Failed to forward log 67ff6a5f65e095e65151b696 to https://eduguard360.com/attendance: Request failed with status code 404, retry 10
+2025-04-16T08:49:35.173Z - Failed to forward log 67ff6a6865e095e65151b69d to https://eduguard360.com/attendance: Request failed with status code 404, retry 10
+2025-04-16T08:49:51.477Z - Failed to forward log 67ff6bdd8efae47611085676 to https://eduguard360.com/attendance: Request failed with status code 404, retry 5
+2025-04-16T08:49:51.478Z - Retrying 4 pending/failed logs
+2025-04-16T08:50:51.787Z - Failed to forward log 67ff6a5065e095e65151b68f to https://eduguard360.com/attendance: Request failed with status code 404, retry 11
+2025-04-16T08:51:52.072Z - Failed to forward log 67ff6a5f65e095e65151b696 to https://eduguard360.com/attendance: Request failed with status code 404, retry 11
+2025-04-16T08:52:52.340Z - Failed to forward log 67ff6a6865e095e65151b69d to https://eduguard360.com/attendance: Request failed with status code 404, retry 11
+2025-04-16T08:53:24.624Z - Failed to forward log 67ff6bdd8efae47611085676 to https://eduguard360.com/attendance: Request failed with status code 404, retry 6
+2025-04-16T08:53:24.625Z - Retrying 4 pending/failed logs
+2025-04-16T08:54:24.919Z - Failed to forward log 67ff6a5065e095e65151b68f to https://eduguard360.com/attendance: Request failed with status code 404, retry 12
+2025-04-16T08:55:25.205Z - Failed to forward log 67ff6a5f65e095e65151b696 to https://eduguard360.com/attendance: Request failed with status code 404, retry 12
+2025-04-16T08:56:25.493Z - Failed to forward log 67ff6a6865e095e65151b69d to https://eduguard360.com/attendance: Request failed with status code 404, retry 12
+2025-04-16T08:57:25.796Z - Failed to forward log 67ff6bdd8efae47611085676 to https://eduguard360.com/attendance: Request failed with status code 404, retry 7
+2025-04-16T08:57:25.797Z - Retrying 4 pending/failed logs
+2025-04-16T08:58:26.128Z - Failed to forward log 67ff6a5065e095e65151b68f to https://eduguard360.com/attendance: Request failed with status code 404, retry 13
+2025-04-16T08:59:26.511Z - Failed to forward log 67ff6a5f65e095e65151b696 to https://eduguard360.com/attendance: Request failed with status code 404, retry 13
+2025-04-16T09:00:26.796Z - Failed to forward log 67ff6a6865e095e65151b69d to https://eduguard360.com/attendance: Request failed with status code 404, retry 13
+2025-04-16T09:01:27.085Z - Failed to forward log 67ff6bdd8efae47611085676 to https://eduguard360.com/attendance: Request failed with status code 404, retry 8
+2025-04-16T09:01:27.086Z - Retrying 4 pending/failed logs
+2025-04-16T09:02:27.652Z - Failed to forward log 67ff6a5065e095e65151b68f to https://eduguard360.com/attendance: Request failed with status code 404, retry 14
+2025-04-16T09:03:27.918Z - Failed to forward log 67ff6a5f65e095e65151b696 to https://eduguard360.com/attendance: Request failed with status code 404, retry 14
+2025-04-16T09:04:28.209Z - Failed to forward log 67ff6a6865e095e65151b69d to https://eduguard360.com/attendance: Request failed with status code 404, retry 14
+2025-04-16T09:05:28.497Z - Failed to forward log 67ff6bdd8efae47611085676 to https://eduguard360.com/attendance: Request failed with status code 404, retry 9
+2025-04-16T09:05:28.499Z - Retrying 4 pending/failed logs
+2025-04-16T09:06:28.797Z - Failed to forward log 67ff6a5065e095e65151b68f to https://eduguard360.com/attendance: Request failed with status code 404, retry 15
+2025-04-16T09:07:29.087Z - Failed to forward log 67ff6a5f65e095e65151b696 to https://eduguard360.com/attendance: Request failed with status code 404, retry 15
+2025-04-16T09:08:29.445Z - Failed to forward log 67ff6a6865e095e65151b69d to https://eduguard360.com/attendance: Request failed with status code 404, retry 15
+2025-04-16T09:09:29.736Z - Failed to forward log 67ff6bdd8efae47611085676 to https://eduguard360.com/attendance: Request failed with status code 404, retry 10
+2025-04-16T09:09:29.737Z - Retrying 4 pending/failed logs
+2025-04-16T09:10:30.046Z - Failed to forward log 67ff6a5065e095e65151b68f to https://eduguard360.com/attendance: Request failed with status code 404, retry 16
+2025-04-16T09:11:30.419Z - Failed to forward log 67ff6a5f65e095e65151b696 to https://eduguard360.com/attendance: Request failed with status code 404, retry 16
+2025-04-16T09:12:30.724Z - Failed to forward log 67ff6a6865e095e65151b69d to https://eduguard360.com/attendance: Request failed with status code 404, retry 16
+2025-04-16T09:13:31.008Z - Failed to forward log 67ff6bdd8efae47611085676 to https://eduguard360.com/attendance: Request failed with status code 404, retry 11
+2025-04-16T09:13:31.010Z - Retrying 4 pending/failed logs
+2025-04-16T09:14:31.300Z - Failed to forward log 67ff6a5065e095e65151b68f to https://eduguard360.com/attendance: Request failed with status code 404, retry 17
+2025-04-16T09:15:31.591Z - Failed to forward log 67ff6a5f65e095e65151b696 to https://eduguard360.com/attendance: Request failed with status code 404, retry 17
+2025-04-16T09:16:31.886Z - Failed to forward log 67ff6a6865e095e65151b69d to https://eduguard360.com/attendance: Request failed with status code 404, retry 17
+2025-04-16T09:17:32.177Z - Failed to forward log 67ff6bdd8efae47611085676 to https://eduguard360.com/attendance: Request failed with status code 404, retry 12
+2025-04-16T09:17:32.178Z - Retrying 4 pending/failed logs
+2025-04-16T09:18:32.465Z - Failed to forward log 67ff6a5065e095e65151b68f to https://eduguard360.com/attendance: Request failed with status code 404, retry 18
+2025-04-16T09:19:32.855Z - Failed to forward log 67ff6a5f65e095e65151b696 to https://eduguard360.com/attendance: Request failed with status code 404, retry 18
+2025-04-16T09:20:33.165Z - Failed to forward log 67ff6a6865e095e65151b69d to https://eduguard360.com/attendance: Request failed with status code 404, retry 18
+2025-04-16T09:21:33.455Z - Failed to forward log 67ff6bdd8efae47611085676 to https://eduguard360.com/attendance: Request failed with status code 404, retry 13
+2025-04-16T09:21:33.456Z - Retrying 4 pending/failed logs
+2025-04-16T09:22:33.732Z - Failed to forward log 67ff6a5065e095e65151b68f to https://eduguard360.com/attendance: Request failed with status code 404, retry 19
+2025-04-16T09:23:34.006Z - Failed to forward log 67ff6a5f65e095e65151b696 to https://eduguard360.com/attendance: Request failed with status code 404, retry 19
+2025-04-16T09:24:34.293Z - Failed to forward log 67ff6a6865e095e65151b69d to https://eduguard360.com/attendance: Request failed with status code 404, retry 19
+2025-04-16T09:25:34.579Z - Failed to forward log 67ff6bdd8efae47611085676 to https://eduguard360.com/attendance: Request failed with status code 404, retry 14
+2025-04-16T09:25:34.580Z - Retrying 4 pending/failed logs
+2025-04-16T09:26:34.909Z - Failed to forward log 67ff6a5065e095e65151b68f to https://eduguard360.com/attendance: Request failed with status code 404, retry 20
+2025-04-16T09:27:35.188Z - Failed to forward log 67ff6a5f65e095e65151b696 to https://eduguard360.com/attendance: Request failed with status code 404, retry 20
+2025-04-16T09:28:35.462Z - Failed to forward log 67ff6a6865e095e65151b69d to https://eduguard360.com/attendance: Request failed with status code 404, retry 20
+2025-04-16T09:29:35.762Z - Failed to forward log 67ff6bdd8efae47611085676 to https://eduguard360.com/attendance: Request failed with status code 404, retry 15
+2025-04-16T09:29:35.763Z - Retrying 4 pending/failed logs
+2025-04-16T09:30:36.093Z - Failed to forward log 67ff6a5065e095e65151b68f to https://eduguard360.com/attendance: Request failed with status code 404, retry 21
+2025-04-16T09:31:36.466Z - Failed to forward log 67ff6a5f65e095e65151b696 to https://eduguard360.com/attendance: Request failed with status code 404, retry 21
+2025-04-16T09:32:36.748Z - Failed to forward log 67ff6a6865e095e65151b69d to https://eduguard360.com/attendance: Request failed with status code 404, retry 21

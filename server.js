@@ -1,20 +1,29 @@
 import dotenv from 'dotenv';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import mongoose from 'mongoose';
+import startWebSocketServer from './services/websocket.js';
+import Company from './models/Company.js';
+import Device from './models/Device.js';
+import Log from './models/Log.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const envPath = path.resolve(__dirname, '.env.local');
-const result = dotenv.config({ path: envPath });
-
-if (result.error) {
-  console.error('Error loading .env.local:', result.error);
-  process.exit(1);
-}
+dotenv.config();
 
 console.log('MONGO_URI:', process.env.MONGO_URI);
 
-import startWebSocketServer from './services/websocket.js';
+const initialize = async () => {
+  if (!process.env.MONGO_URI) {
+    console.error('Error: MONGO_URI is not defined in .env file');
+    process.exit(1);
+  }
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      serverSelectionTimeoutMS: 5000,
+    });
+    console.log('MongoDB connected');
+    await startWebSocketServer();
+  } catch (err) {
+    console.error('MongoDB connection error:', err.message);
+    process.exit(1);
+  }
+};
 
-startWebSocketServer();
+initialize();

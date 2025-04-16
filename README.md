@@ -327,5 +327,4 @@ Contribute at [your GitHub repo](#) - feedback welcome!
   sudo systemctl status nginx
   ```
 
-Contact support at akram@nextpagetl.com or open an issue at [\[attendance_solution
-\]](https://github.com/nextpagetl/attendance_solution.git).
+Contact support at akram@nextpagetl.com or open an issue at [\[attendance_solution\]](https://github.com/nextpagetl/attendance_solution.git).

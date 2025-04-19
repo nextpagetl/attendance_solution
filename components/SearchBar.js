@@ -1,36 +1,42 @@
+'use client';
 import { useState } from 'react';
 import axios from 'axios';
 
-export default function SearchBar({ onSearch }) {
+export default function SearchBar({ endpoint, onSearch }) {
   const [query, setQuery] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSearch = async () => {
-    if (!query) {
-      onSearch([]);
-      return;
-    }
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    setError('');
     try {
-      const res = await axios.get(`/api/devices/search?query=${query}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('No authentication token found');
+      }
+      const res = await axios.get(`${endpoint}?search=${encodeURIComponent(query)}`, {
+        headers: { Authorization: `Bearer ${token}` }
       });
-      onSearch(res.data);
-    } catch (error) {
-      console.error('Error searching devices:', error);
+      const results = endpoint.includes('companies') ? res.data.companies : res.data.devices;
+      onSearch(results);
+    } catch (err) {
+      setError(err.response?.data?.error || `Failed to search ${endpoint.includes('companies') ? 'companies' : 'devices'}`);
     }
   };
 
   return (
-    <div className="flex">
+    <form onSubmit={handleSearch} className="flex gap-2">
       <input
         type="text"
-        placeholder="Search devices..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        className="p-2 border rounded-l flex-grow"
+        placeholder={endpoint.includes('companies') ? 'Search by company name' : 'Search by serial number or company name'}
+        className="border p-2 rounded w-full"
       />
-      <button onClick={handleSearch} className="p-2 bg-blue-500 text-white rounded-r">
+      <button type="submit" className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
         Search
       </button>
-    </div>
+      {error && <p className="text-red-500 mt-2">{error}</p>}
+    </form>
   );
 }

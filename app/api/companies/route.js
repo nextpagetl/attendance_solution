@@ -27,10 +27,25 @@ export async function GET(request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
+  const { searchParams } = new URL(request.url);
+  const page = parseInt(searchParams.get('page') || '1');
+  const limit = parseInt(searchParams.get('limit') || '10');
+  const search = searchParams.get('search') || '';
+  const skip = (page - 1) * limit;
+
   try {
-    const companies = await Company.find();
-    return NextResponse.json(companies);
+    let query = {};
+    if (search) {
+      query = { name: { $regex: search, $options: 'i' } };
+    }
+    const companies = await Company.find(query).skip(skip).limit(limit);
+    const total = await Company.countDocuments(query);
+    return NextResponse.json({
+      companies,
+      totalPages: Math.ceil(total / limit),
+      currentPage: page
+    });
   } catch (error) {
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    return NextResponse.json({ error: error.message }, { status: 400 });
   }
 }

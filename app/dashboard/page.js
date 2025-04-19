@@ -2,42 +2,36 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import DeviceList from '../../components/DeviceList';
 import DeviceForm from '../../components/DeviceForm';
 import CompanyForm from '../../components/CompanyForm';
-import SearchBar from '../../components/SearchBar';
+import Link from 'next/link';
 
 export default function Dashboard() {
-  const [devices, setDevices] = useState([]);
-  const [companies, setCompanies] = useState([]);
   const [logs, setLogs] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [isLoading, setIsLoading] = useState(true); // Add loading state
+  const [companies, setCompanies] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
   const router = useRouter();
 
   useEffect(() => {
-    // Check token only on client
     const token = localStorage.getItem('token');
     if (!token) {
       router.push('/login');
     } else {
-      setIsLoading(false); // Render UI if token exists
-      fetchDevices(token);
-      fetchCompanies(token);
+      setIsLoading(false);
       fetchLogs(token);
+      fetchCompanies(token);
     }
-  }, [page, router]);
+  }, [router]);
 
-  const fetchDevices = async (token) => {
+  const fetchLogs = async (token) => {
     try {
-      const res = await axios.get(`/api/devices?page=${page}&limit=10`, {
+      const res = await axios.get('/api/logs?page=1&limit=10', {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setDevices(res.data.devices);
-      setTotalPages(res.data.totalPages);
-    } catch (error) {
-      console.error('Error fetching devices:', error);
+      setLogs(res.data.logs);
+    } catch (err) {
+      setError('Failed to fetch logs');
     }
   };
 
@@ -46,20 +40,9 @@ export default function Dashboard() {
       const res = await axios.get('/api/companies', {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setCompanies(res.data);
-    } catch (error) {
-      console.error('Error fetching companies:', error);
-    }
-  };
-
-  const fetchLogs = async (token) => {
-    try {
-      const res = await axios.get('/api/logs?page=1&limit=10', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setLogs(res.data.logs);
-    } catch (error) {
-      console.error('Error fetching logs:', error);
+      setCompanies(res.data.companies || res.data);
+    } catch (err) {
+      setError('Failed to fetch companies');
     }
   };
 
@@ -68,7 +51,6 @@ export default function Dashboard() {
     router.push('/login');
   };
 
-  // Show loading state during hydration
   if (isLoading) {
     return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
   }
@@ -84,14 +66,21 @@ export default function Dashboard() {
           Logout
         </button>
       </div>
+      {error && <p className="text-red-500 mb-4">{error}</p>}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <h2 className="text-xl mb-4">Add Device</h2>
-          <DeviceForm companies={companies} onSuccess={() => fetchDevices(localStorage.getItem('token'))} />
+          <DeviceForm companies={companies} onSuccess={() => router.push('/devices')} />
+          <Link href="/devices" className="text-blue-500 hover:underline mt-4 block">
+            Manage Devices
+          </Link>
         </div>
         <div>
           <h2 className="text-xl mb-4">Add Company</h2>
-          <CompanyForm onSuccess={() => fetchCompanies(localStorage.getItem('token'))} />
+          <CompanyForm onSuccess={() => router.push('/companies')} />
+          <Link href="/companies" className="text-blue-500 hover:underline mt-4 block">
+            Manage Companies
+          </Link>
         </div>
       </div>
       <div className="mt-6">
@@ -111,16 +100,6 @@ export default function Dashboard() {
           ))}
         </ul>
       </div>
-      <div className="mt-6">
-        <SearchBar onSearch={(results) => setDevices(results)} />
-      </div>
-      <DeviceList
-        devices={devices}
-        onUpdate={() => fetchDevices(localStorage.getItem('token'))}
-        page={page}
-        totalPages={totalPages}
-        setPage={setPage}
-      />
     </div>
   );
 }

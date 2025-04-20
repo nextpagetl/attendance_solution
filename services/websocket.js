@@ -2,13 +2,15 @@ import { WebSocketServer } from 'ws';
 import fs from 'fs';
 import axios from 'axios';
 import mongoose from 'mongoose';
+import { formatInTimeZone } from 'date-fns-tz';
 import Device from '../models/Device.js';
 import Log from '../models/Log.js';
 
+const TIMEZONE = 'Asia/Dhaka';
 const logStream = fs.createWriteStream('logs/websocket.log', { flags: 'a' });
 
 function log(message, force = false) {
-  const timestamp = new Date().toISOString();
+  const timestamp = formatInTimeZone(new Date(), TIMEZONE, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
   const logMessage = `${timestamp} - ${message}\n`;
   console.log(logMessage.trim());
   logStream.write(logMessage);
@@ -122,8 +124,8 @@ const startWebSocketServer = async () => {
       }
 
       if (data.cmd === 'reg') {
-        const now = new Date().toISOString().replace('T', ' ').split('.')[0];
-        const today = new Date().toISOString().split('T')[0];
+        const now = formatInTimeZone(new Date(), TIMEZONE, 'yyyy-MM-dd HH:mm:ss');
+        const today = formatInTimeZone(new Date(), TIMEZONE, 'yyyy-MM-dd');
         const response = {
           ret: 'reg',
           result: true,
@@ -184,7 +186,7 @@ const startWebSocketServer = async () => {
             logindex: data.logindex || 0,
             record: newRecords,
             companyId: device.companyId,
-            cloudtime: new Date().toISOString().replace('T', ' ').split('.')[0],
+            cloudtime: formatInTimeZone(new Date(), TIMEZONE, 'yyyy-MM-dd HH:mm:ss'),
             access: 1,
             timestamp: new Date(),
             forwardStatus: 'pending',
@@ -201,7 +203,7 @@ const startWebSocketServer = async () => {
           result: true,
           count: data.count,
           logindex: data.logindex || 0,
-          cloudtime: new Date().toISOString().replace('T', ' ').split('.')[0],
+          cloudtime: formatInTimeZone(new Date(), TIMEZONE, 'yyyy-MM-dd HH:mm:ss'),
           access: 1,
         };
         ws.send(JSON.stringify(response));
@@ -211,7 +213,7 @@ const startWebSocketServer = async () => {
         const response = {
           ret: 'senduser',
           result: true,
-          cloudtime: new Date().toISOString().replace('T', ' ').split('.')[0],
+          cloudtime: formatInTimeZone(new Date(), TIMEZONE, 'yyyy-MM-dd HH:mm:ss'),
         };
         ws.send(JSON.stringify(response));
         log(`Sent: ${JSON.stringify(response)}`);

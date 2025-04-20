@@ -27,11 +27,11 @@ export async function PATCH(request, { params }) {
   if (!token || !verifyToken(token)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
-
+  const { id } = params;
   const { name } = await request.json();
   try {
     const company = await Company.findByIdAndUpdate(
-      params.id,
+      id,
       { name, updatedAt: Date.now() },
       { new: true }
     );

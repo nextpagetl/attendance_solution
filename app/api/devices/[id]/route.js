@@ -9,9 +9,10 @@ export async function GET(request, { params }) {
   if (!token || !verifyToken(token)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
-
+  
   try {
-    const device = await Device.findById(params.id).populate('companyId');
+    const { id } = params;
+    const device = await Device.findById(id).populate('companyId');
     if (!device) {
       return NextResponse.json({ error: 'Device not found' }, { status: 404 });
     }
@@ -27,12 +28,12 @@ export async function PATCH(request, { params }) {
   if (!token || !verifyToken(token)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
-
-  const { serialNumber, apiUrl, isActive } = await request.json();
+  const { id } = params;
+  const { serialNumber, companyId, apiUrl, isActive } = await request.json();
   try {
     const device = await Device.findByIdAndUpdate(
-      params.id,
-      { serialNumber, apiUrl, isActive, updatedAt: Date.now() },
+      id,
+      { serialNumber, companyId, apiUrl, isActive, updatedAt: Date.now() },
       { new: true }
     );
     if (!device) {

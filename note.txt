@@ -1,3 +1,8 @@
 create admin by curl request:
 
 curl -X POST http://localhost:3000/api/auth/create -d '{"username":"admin","password":"securepassword123"}' -H "Content-Type: application/json"
+
+Restart Servers:
+cd ~/node_websocket
+npm run build
+pm2 restart all

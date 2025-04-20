@@ -8,31 +8,46 @@ export default function EditDevice() {
   const [serialNumber, setSerialNumber] = useState('');
   const [apiUrl, setApiUrl] = useState('');
   const [isActive, setIsActive] = useState(false);
+  const [companyId, setCompanyId] = useState('');
+  const [companies, setCompanies] = useState([]);
   const router = useRouter();
   const { id } = useParams();
 
   useEffect(() => {
-    async function fetchDevice() {
+    async function fetchData() {
       try {
-        const { data } = await axios.get(`/api/devices/${id}`, {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        // Fetch device
+        const { data: device } = await axios.get(`/api/devices/${id}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
-        setSerialNumber(data.serialNumber);
-        setApiUrl(data.apiUrl);
-        setIsActive(data.isActive);
+        setSerialNumber(device.serialNumber);
+        setApiUrl(device.apiUrl);
+        setIsActive(device.isActive);
+        setCompanyId(device.companyId._id); // Set current companyId
+
+        // Fetch companies
+        const { data: companiesData } = await axios.get('/api/companies', {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        });
+
+        setCompanies(companiesData.companies);
       } catch (error) {
-        alert('Failed to fetch device');
+        alert('Failed to fetch data');
       }
     }
-    fetchDevice();
+    fetchData();
   }, [id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.patch(`/api/devices/${id}`, { serialNumber, apiUrl, isActive }, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-      });
+      await axios.patch(
+        `/api/devices/${id}`,
+        { serialNumber, apiUrl, isActive, companyId },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        }
+      );
       alert('Device updated');
       router.push('/devices');
     } catch (error) {
@@ -52,6 +67,20 @@ export default function EditDevice() {
             placeholder="Serial Number"
             className="border p-2 w-full"
           />
+        </div>
+        <div>
+          <select
+            value={companyId}
+            onChange={(e) => setCompanyId(e.target.value)}
+            className="border p-2 w-full"
+          >
+            <option value="">Select Company</option>
+            {companies.map((company) => (
+              <option key={company._id} value={company._id}>
+                {company.name}
+              </option>
+            ))}
+          </select>
         </div>
         <div>
           <input

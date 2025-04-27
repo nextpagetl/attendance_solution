@@ -318,7 +318,7 @@ The following cron jobs were created for the CodeIgniter application to support 
    - **Endpoint**: `/usr/bin/curl --silent https://ws.empo.edu.bd/SmsQueue/process`.
    - **Command (cPanel)**:
      ```bash
-     /usr/bin/curl --silent /usr/bin/curl --silent https://ws.empo.edu.bd/SmsQueue/process
+     /usr/bin/curl --silent https://ws.empo.edu.bd/SmsQueue/process
      ```
    - **Frequency**: Every minute (`* * * * *`), ensuring real-time SMS delivery with sequential processing.
    - **Created**: In the attendance/SMS queuing solution (April 20, 2025, Step 7).
@@ -333,7 +333,7 @@ The following cron jobs were created for the CodeIgniter application to support 
    - **Endpoint**: `/usr/bin/curl --silent https://ws.empo.edu.bd/LogProcessor/process`.
    - **Command (cPanel)**:
      ```bash
-     /usr/bin/curl --silent /usr/bin/curl --silent https://ws.empo.edu.bd/LogProcessor/process
+     /usr/bin/curl --silent https://ws.empo.edu.bd/LogProcessor/process
      ```
    - **Frequency**: Every minute (`* * * * *`), processing up to 100 pending log batches per execution.
    - **Created**: In the asynchronous log processing solution (April 20, 2025, Step 6).
@@ -348,11 +348,11 @@ The following cron jobs were created for the CodeIgniter application to support 
 - **Count**: 2 cron jobs.
 - **Summary**:
   1. **SMS Queue Processor**:
-     - Command: `/usr/bin/curl --silent /usr/bin/curl --silent https://ws.empo.edu.bd/SmsQueue/process`
+     - Command: `/usr/bin/curl --silent https://ws.empo.edu.bd/SmsQueue/process`
      - Frequency: Every minute
      - Purpose: Sends SMS from `sms_queue`
   2. **Log Queue Processor**:
-     - Command: `/usr/bin/curl --silent /usr/bin/curl --silent https://ws.empo.edu.bd/LogProcessor/process`
+     - Command: `/usr/bin/curl --silent https://ws.empo.edu.bd/LogProcessor/process`
      - Frequency: Every minute
      - Purpose: Processes `log_queue` for attendance and SMS
 
@@ -371,7 +371,7 @@ Since your CodeIgniter application is hosted on A2 Hosting (e.g., `https://ws.em
    - **Common Settings**: Select “Once Per Minute” (`* * * * *`).
    - **Command**:
        ```bash
-       /usr/bin/curl --silent /usr/bin/curl --silent https://ws.empo.edu.bd/SmsQueue/process
+       /usr/bin/curl --silent https://ws.empo.edu.bd/SmsQueue/process
        ```
    - **Add New Cron Job**: Click “Add New Cron Job”.
 
@@ -379,7 +379,7 @@ Since your CodeIgniter application is hosted on A2 Hosting (e.g., `https://ws.em
    - **Common Settings**: Select “Once Per Minute” (`* * * * *`).
    - **Command**:
        ```bash
-       /usr/bin/curl --silent /usr/bin/curl --silent https://ws.empo.edu.bd/LogProcessor/process
+       /usr/bin/curl --silent https://ws.empo.edu.bd/LogProcessor/process
        ```
    - **Add New Cron Job**: Click “Add New Cron Job”.
 

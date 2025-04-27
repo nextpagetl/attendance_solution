@@ -75,14 +75,14 @@ The following tables are used in the CodeIgniter attendance system. Some were ne
      - **Schema** (inferred):
        ```sql
        CREATE TABLE attendance_logs (
-           id BIGINT AUTO_INCREMENT PRIMARY KEY,
-           serial_number VARCHAR(50),
-           enroll_id VARCHAR(20),
-           log_time DATETIME,
-           mode INT,
-           inout INT,
-           event INT,
-           created_at DATETIME
+           `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
+           `serial_number` VARCHAR(50),
+           `enroll_id` VARCHAR(20),
+           `log_time` DATETIME,
+           `mode` INT,
+           `inout` INT,
+           `event` INT,
+           `created_at` DATETIME
        );
        ```
    - **`log_queue`**:
@@ -91,13 +91,13 @@ The following tables are used in the CodeIgniter attendance system. Some were ne
      - **Schema**:
        ```sql
        CREATE TABLE log_queue (
-           id BIGINT AUTO_INCREMENT PRIMARY KEY,
-           serial_number VARCHAR(50) NOT NULL,
-           raw_data TEXT NOT NULL,
-           status ENUM('pending', 'processed', 'failed') DEFAULT 'pending',
-           retry_count INT DEFAULT 0,
-           created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-           updated_at DATETIME ON UPDATE CURRENT_TIMESTAMP
+           `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
+           `serial_number` VARCHAR(50) NOT NULL,
+           `raw_data` TEXT NOT NULL,
+           `status` ENUM('pending', 'processed', 'failed') DEFAULT 'pending',
+           `retry_count` INT DEFAULT 0,
+           `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+           `updated_at` DATETIME ON UPDATE CURRENT_TIMESTAMP
        );
        ```
    - **`sms_queue`**:
@@ -106,17 +106,17 @@ The following tables are used in the CodeIgniter attendance system. Some were ne
      - **Schema**:
        ```sql
        CREATE TABLE sms_queue (
-           id BIGINT AUTO_INCREMENT PRIMARY KEY,
-           student_id INT NOT NULL,
-           phone VARCHAR(20) NOT NULL,
-           message TEXT NOT NULL,
-           sms_type int(11) NOT NULL COMMENT '1 = present, 2 = absent, 3 = departure, 4 = late present',
-           date date NOT NULL,
-           status ENUM('pending', 'sent', 'failed') DEFAULT 'pending',
-           error_message VARCHAR(255) DEFAULT NULL,
-           retry_count INT DEFAULT 0,
-           created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-           updated_at DATETIME ON UPDATE CURRENT_TIMESTAMP
+           `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
+           `student_id` INT NOT NULL,
+           `phone` VARCHAR(20) NOT NULL,
+           `message` TEXT NOT NULL,
+           `sms_type` int(11) NOT NULL COMMENT '1 = present, 2 = absent, 3 = departure, 4 = late present',
+           `date` date NOT NULL,
+           `status` ENUM('pending', 'sent', 'failed') DEFAULT 'pending',
+           `error_message` VARCHAR(255) DEFAULT NULL,
+           `retry_count` INT DEFAULT 0,
+           `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+           `updated_at` DATETIME ON UPDATE CURRENT_TIMESTAMP
        );
        ```
 
@@ -127,18 +127,18 @@ The following tables are used in the CodeIgniter attendance system. Some were ne
       - **Schema** (inferred):
         ```sql
         CREATE TABLE attendance (
-            attendanceID BIGINT AUTO_INCREMENT PRIMARY KEY,
-            studentID INT,
-            schoolyearID INT,
-            classesID INT,
-            sectionID INT,
-            userID INT,
-            usertype VARCHAR(20),
-            monthyear VARCHAR(7),
-            a1 CHAR(1),
-            a2 CHAR(1),
+            `attendanceID` BIGINT AUTO_INCREMENT PRIMARY KEY,
+            `studentID` INT,
+            `schoolyearID` INT,
+            `classesID` INT,
+            `sectionID` INT,
+            `userID` INT,
+            `usertype` VARCHAR(20),
+            `monthyear` VARCHAR(7),
+            `a1` CHAR(1),
+            `a2` CHAR(1),
             ...
-            a31 CHAR(1)
+            `a31` CHAR(1)
         );
         ```
    - **`tattendance`**:
@@ -147,15 +147,15 @@ The following tables are used in the CodeIgniter attendance system. Some were ne
      - **Schema** (inferred):
        ```sql
        CREATE TABLE tattendance (
-           tattendanceID BIGINT AUTO_INCREMENT PRIMARY KEY,
-           schoolyearID INT,
-           teacherID INT,
-           usertypeID INT,
-           monthyear VARCHAR(7),
-           a1 CHAR(1),
-           a2 CHAR(1),
+           `tattendanceID` BIGINT AUTO_INCREMENT PRIMARY KEY,
+           `schoolyearID` INT,
+           `teacherID` INT,
+           `usertypeID` INT,
+           `monthyear` VARCHAR(7),
+           `a1` CHAR(1),
+           `a2` CHAR(1),
            ...
-           a31 CHAR(1)
+           `a31` CHAR(1)
        );
        ```
    - **`uattendance`**:
@@ -164,15 +164,15 @@ The following tables are used in the CodeIgniter attendance system. Some were ne
      - **Schema** (inferred):
        ```sql
        CREATE TABLE uattendance (
-           uattendanceID BIGINT AUTO_INCREMENT PRIMARY KEY,
-           schoolyearID INT,
-           userID INT,
-           usertypeID INT,
-           monthyear VARCHAR(7),
-           a1 CHAR(1),
-           a2 CHAR(1),
+           `uattendanceID` BIGINT AUTO_INCREMENT PRIMARY KEY,
+           `schoolyearID` INT,
+           `userID` INT,
+           `usertypeID` INT,
+           `monthyear` VARCHAR(7),
+           `a1` CHAR(1),
+           `a2` CHAR(1),
            ...
-           a31 CHAR(1)
+           `a31` CHAR(1)
        );
        ```
    - **`student_2025`** (dynamic, e.g., `student_<schoolyear>`):
@@ -181,15 +181,15 @@ The following tables are used in the CodeIgniter attendance system. Some were ne
      - **Schema** (inferred):
        ```sql
        CREATE TABLE student_2025 (
-           studentID INT PRIMARY KEY,
-           student_att_id INT,
-           name VARCHAR(100),
-           phone VARCHAR(20),
-           classesID INT,
-           sectionID INT,
-           schoolyearID INT,
-           active TINYINT,
-           soft_delete TINYINT
+           `studentID` INT PRIMARY KEY,
+           `student_att_id` INT,
+           `name` VARCHAR(100),
+           `phone` VARCHAR(20),
+           `classesID` INT,
+           `sectionID` INT,
+           `schoolyearID` INT,
+           `active` TINYINT,
+           `soft_delete` TINYINT
        );
        ```
    - **`classes`**:
@@ -198,10 +198,10 @@ The following tables are used in the CodeIgniter attendance system. Some were ne
      - **Schema** (inferred):
        ```sql
        CREATE TABLE classes (
-           classesID INT PRIMARY KEY,
-           classes VARCHAR(100),
-           entry_start_time TIME,
-           entry_end_time TIME
+           `classesID` INT PRIMARY KEY,
+           `classes` VARCHAR(100),
+           `entry_start_time` TIME,
+           `entry_end_time` TIME
        );
        ```
    - **`setting`**:
@@ -241,9 +241,9 @@ The following tables are used in the CodeIgniter attendance system. Some were ne
      - **Schema** (inferred):
        ```sql
        CREATE TABLE mailandsmstemplate (
-           mailandsmstemplateID INT PRIMARY KEY,
-           sms_type_setting_id INT,
-           template TEXT
+           `mailandsmstemplateID` INT PRIMARY KEY,
+           `sms_type_setting_id` INT,
+           `template` TEXT
        );
        ```
    - **`mailandsms`**:
@@ -252,20 +252,20 @@ The following tables are used in the CodeIgniter attendance system. Some were ne
      - **Schema** (inferred):
        ```sql
        CREATE TABLE mailandsms (
-           mailandsmsID INT PRIMARY KEY,
-           usertypeID INT,
-           userID INT,
-           phone_no VARCHAR(20),
-           type VARCHAR(20),
-           message TEXT,
-           date DATE,
-           create_date DATETIME,
-           year INT,
-           senderusertypeID INT,
-           senderID INT,
-           sms_count INT,
-           is_send TINYINT,
-           smsType INT
+           `mailandsmsID` INT PRIMARY KEY,
+           `usertypeID` INT,
+           `userID` INT,
+           `phone_no` VARCHAR(20),
+           `type` VARCHAR(20),
+           `message` TEXT,
+           `date` DATE,
+           `create_date` DATETIME,
+           `year` INT,
+           `senderusertypeID` INT,
+           `senderID` INT,
+           `sms_count` INT,
+           `is_send` TINYINT,
+           `smsType` INT
        );
        ```
 

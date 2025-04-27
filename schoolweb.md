@@ -110,7 +110,10 @@ The following tables are used in the CodeIgniter attendance system. Some were ne
            student_id INT NOT NULL,
            phone VARCHAR(20) NOT NULL,
            message TEXT NOT NULL,
+           sms_type int(11) NOT NULL COMMENT '1 = present, 2 = absent, 3 = departure, 4 = late present',
+           date date NOT NULL,
            status ENUM('pending', 'sent', 'failed') DEFAULT 'pending',
+           error_message VARCHAR(255) DEFAULT NULL,
            retry_count INT DEFAULT 0,
            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
            updated_at DATETIME ON UPDATE CURRENT_TIMESTAMP

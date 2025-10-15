@@ -10,7 +10,7 @@ export async function POST(request) {
 
   try {
     // Forward to WebSocket server's HTTP endpoint (adjust URL for production)
-    const wsUrl = `http://localhost:${process.env.WS_PORT || 7792}/send-command`;
+    const wsUrl = `http://143.198.94.167:${process.env.WS_PORT || 7792}/send-command`;
     const response = await fetch(wsUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

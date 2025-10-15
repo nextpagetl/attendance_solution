@@ -75,15 +75,15 @@ export default function DeviceList() {
                 <td className="p-2">{device.apiUrl}</td>
                 <td className="p-2">{device.isActive ? 'Yes' : 'No'}</td>
                 <td className="p-2">
-                <Link
-                  href={`/devices/control?sn=${device.serialNumber}`}
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                >
-                  Manage
-                </Link>
+                  <Link
+                    href={`/devices/control?sn=${device.serialNumber}`}
+                    className="bg-blue-500 text-white px-4 py-2 mx-2 rounded hover:bg-blue-600"
+                  >
+                    Manage
+                  </Link>
                   <Link
                     href={`/devices/${device._id}`}
-                    className="text-blue-500 hover:underline"
+                    className="bg-blue-500 text-white px-4 py-2 mx-2 rounded hover:bg-blue-600"
                   >
                     Edit
                   </Link>

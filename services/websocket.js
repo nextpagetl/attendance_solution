@@ -1,4 +1,5 @@
 import { WebSocketServer } from 'ws';
+import http from 'http'; // Added for HTTP server to handle command sending from API
 import fs from 'fs';
 import axios from 'axios';
 import mongoose from 'mongoose';
@@ -8,6 +9,8 @@ import Log from '../models/Log.js';
 
 const TIMEZONE = 'Asia/Dhaka';
 const logStream = fs.createWriteStream('logs/websocket.log', { flags: 'a' });
+const deviceConnections = new Map(); // Map<sn, ws> to store connected devices
+const commandResponses = new Map(); // Map<commandId, {resolve, reject}> for awaiting responses
 
 function log(message, force = false) {
   const timestamp = formatInTimeZone(new Date(), TIMEZONE, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
@@ -95,15 +98,45 @@ async function retryPendingLogs() {
   }
 }
 
+// Function to send command to device and await response (with timeout)
+async function sendCommandToDevice(sn, command) {
+  const ws = deviceConnections.get(sn);
+  if (!ws) {
+    throw new Error(`Device ${sn} not connected`);
+  }
+
+  const commandId = Math.random().toString(36).substring(2); // Unique ID for command
+  command.commandId = commandId; // Add to track response
+
+  return new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      commandResponses.delete(commandId);
+      reject(new Error('Command timeout'));
+    }, 10000); // 10s timeout
+
+    commandResponses.set(commandId, { resolve: (data) => {
+      clearTimeout(timeout);
+      commandResponses.delete(commandId);
+      resolve(data);
+    }, reject });
+
+    ws.send(JSON.stringify(command));
+    log(`Sent command to ${sn}: ${JSON.stringify(command)}`);
+  });
+}
+
 const startWebSocketServer = async () => {
   await connectDB();
-  const wss = new WebSocketServer({ port: process.env.WS_PORT });
+
+  const server = http.createServer(); // Create HTTP server
+  const wss = new WebSocketServer({ server }); // Attach WSS to HTTP server
 
   retryPendingLogs().catch((err) => log(`Retry loop crashed: ${err.message}`, true));
 
   wss.on('connection', async (ws, req) => {
     const clientIp = req.socket.remoteAddress;
     log(`Device connected from ${clientIp}`);
+    let deviceSn = null;
 
     ws.on('message', async (message) => {
       log(`Received: ${message}`);
@@ -115,6 +148,15 @@ const startWebSocketServer = async () => {
         return;
       }
 
+      if (data.commandId) {
+        // This is a response to a sent command
+        const handler = commandResponses.get(data.commandId);
+        if (handler) {
+          handler.resolve(data);
+          return;
+        }
+      }
+
       const device = await Device.findOne({ serialNumber: data.sn }).populate('companyId');
       if (!device || !device.isActive || !device.companyId) {
         log(`Unauthorized, inactive, or no company for device: ${data.sn}`);
@@ -124,6 +166,8 @@ const startWebSocketServer = async () => {
       }
 
       if (data.cmd === 'reg') {
+        deviceSn = data.sn;
+        deviceConnections.set(data.sn, ws); // Store connection
         const now = formatInTimeZone(new Date(), TIMEZONE, 'yyyy-MM-dd HH:mm:ss');
         const today = formatInTimeZone(new Date(), TIMEZONE, 'yyyy-MM-dd');
         const response = {
@@ -217,7 +261,20 @@ const startWebSocketServer = async () => {
         };
         ws.send(JSON.stringify(response));
         log(`Sent: ${JSON.stringify(response)}`);
+      } else if (data.cmd === 'sendqrcode') {
+        // Handle QR code
+        const response = {
+          ret: 'sendqrcode',
+          result: true,
+          access: 1,
+          enrollid: 10,
+          username: 'tom',
+          message: 'ok',
+        };
+        ws.send(JSON.stringify(response));
+        log(`Sent: ${JSON.stringify(response)}`);
       } else {
+        // Handle other terminal-initiated commands if needed
         const response = `Unknown command: ${data.cmd || data.ret}`;
         ws.send(response);
         log(`Sent: ${response}`);
@@ -225,6 +282,7 @@ const startWebSocketServer = async () => {
     });
 
     ws.on('close', () => {
+      if (deviceSn) deviceConnections.delete(deviceSn);
       log(`Device disconnected from ${clientIp}`);
     });
 
@@ -233,7 +291,44 @@ const startWebSocketServer = async () => {
     });
   });
 
-  log(`WebSocket server started on ws://0.0.0.0:${process.env.WS_PORT}`, true);
+  // HTTP endpoint to send commands to devices (called from Next.js API)
+  server.on('request', async (req, res) => {
+    if (req.method === 'POST' && req.url === '/send-command') {
+      let body = '';
+      req.on('data', (chunk) => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const { sn, command } = JSON.parse(body);
+          if (!sn || !command || !command.cmd) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Invalid request: missing sn or command' }));
+            return;
+          }
+
+          const device = await Device.findOne({ serialNumber: sn });
+          if (!device || !device.isActive) {
+            res.writeHead(404, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Device not found or inactive' }));
+            return;
+          }
+
+          const response = await sendCommandToDevice(sn, command);
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ message: 'Command sent', response }));
+        } catch (err) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: err.message }));
+        }
+      });
+    } else {
+      res.writeHead(404, { 'Content-Type': 'text/plain' });
+      res.end('Not Found');
+    }
+  });
+
+  server.listen(process.env.WS_PORT, '0.0.0.0', () => {
+    log(`WebSocket and HTTP server started on http://0.0.0.0:${process.env.WS_PORT}`, true);
+  });
 };
 
 export default startWebSocketServer;

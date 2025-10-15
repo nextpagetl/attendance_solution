@@ -1,11 +1,11 @@
-'use client'; // keep this
+'use client';
 
-import { useState, useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { formatInTimeZone } from "date-fns-tz";
 export const dynamic = 'force-dynamic';
 
-export default function DeviceControl() {
+function DeviceControlContent() {
   const searchParams = useSearchParams();
   const initialSn = searchParams.get("sn");
   const [serialNumber, setSerialNumber] = useState(initialSn);
@@ -117,5 +117,13 @@ export default function DeviceControl() {
         <pre className="bg-gray-100 p-4 overflow-auto">{JSON.stringify(response, null, 2)}</pre>
       </div>}
     </div>
+  );
+}
+
+export default function DeviceControl() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DeviceControlContent />
+    </Suspense>
   );
 }

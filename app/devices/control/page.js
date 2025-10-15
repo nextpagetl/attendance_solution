@@ -1,17 +1,19 @@
-"use client";
+'use client'; // keep this
+
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { formatInTimeZone } from "date-fns-tz";
+export const dynamic = 'force-dynamic';
 
 export default function DeviceControl() {
   const searchParams = useSearchParams();
-  const initialSn = searchParams.get("sn") || "AYSK15017220"; // Get sn from URL or use default
+  const initialSn = searchParams.get("sn");
   const [serialNumber, setSerialNumber] = useState(initialSn);
   const [commandType, setCommandType] = useState("opendoor");
   const [params, setParams] = useState({});
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
 
-  // Update serialNumber if URL query changes
   useEffect(() => {
     setSerialNumber(initialSn);
   }, [initialSn]);
@@ -58,7 +60,6 @@ export default function DeviceControl() {
 
     let command = { cmd: commandType };
 
-    // Add default params if needed
     if (commandType === "settime") {
       params.cloudtime = formatInTimeZone(new Date(), "Asia/Dhaka", 'yyyy-MM-dd HH:mm:ss');
     } else if (commandType === "getalllog" && !params.from) {
@@ -67,7 +68,6 @@ export default function DeviceControl() {
       params.to = today;
     }
 
-    // Merge params into command
     Object.assign(command, params);
 
     try {
@@ -75,14 +75,12 @@ export default function DeviceControl() {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${localStorage.getItem("token")}` // Add JWT token
+          "Authorization": `Bearer ${localStorage.getItem("token")}`
         },
         body: JSON.stringify({ sn: serialNumber, command }),
       });
 
-      if (!res.ok) {
-        throw new Error(`HTTP error: ${res.status}`);
-      }
+      if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
 
       const data = await res.json();
       setResponse(data);
@@ -98,52 +96,26 @@ export default function DeviceControl() {
       <h1 className="text-2xl mb-4">Device Control Panel</h1>
       <div className="mb-4">
         <label className="block mb-2">Serial Number:</label>
-        <input
-          type="text"
-          value={serialNumber}
-          onChange={(e) => setSerialNumber(e.target.value)}
-          className="border p-2 w-full"
-        />
+        <input type="text" value={serialNumber} onChange={(e) => setSerialNumber(e.target.value)} className="border p-2 w-full"/>
       </div>
       <div className="mb-4">
         <label className="block mb-2">Command:</label>
-        <select
-          value={commandType}
-          onChange={(e) => {
-            setCommandType(e.target.value);
-            setParams({});
-          }}
-          className="border p-2 w-full"
-        >
-          {commands.map((cmd) => (
-            <option key={cmd.value} value={cmd.value}>
-              {cmd.label}
-            </option>
-          ))}
+        <select value={commandType} onChange={(e) => { setCommandType(e.target.value); setParams({}); }} className="border p-2 w-full">
+          {commands.map((cmd) => <option key={cmd.value} value={cmd.value}>{cmd.label}</option>)}
         </select>
       </div>
       {selectedCommand.params.map((param) => (
         <div key={param} className="mb-4">
           <label className="block mb-2">{param}:</label>
-          <input
-            type="text"
-            value={params[param] || ""}
-            onChange={(e) => handleParamChange(param, e.target.value)}
-            className="border p-2 w-full"
-            placeholder={`Enter ${param} (e.g., for arrays: JSON string)`}
-          />
+          <input type="text" value={params[param] || ""} onChange={(e) => handleParamChange(param, e.target.value)} className="border p-2 w-full" placeholder={`Enter ${param}`} />
         </div>
       ))}
-      <button onClick={sendCommand} className="bg-blue-500 text-white p-2 mb-4">
-        Send Command
-      </button>
+      <button onClick={sendCommand} className="bg-blue-500 text-white p-2 mb-4">Send Command</button>
       {error && <p className="text-red-500">{error}</p>}
-      {response && (
-        <div>
-          <h2 className="text-xl mb-2">Response:</h2>
-          <pre className="bg-gray-100 p-4 overflow-auto">{JSON.stringify(response, null, 2)}</pre>
-        </div>
-      )}
+      {response && <div>
+        <h2 className="text-xl mb-2">Response:</h2>
+        <pre className="bg-gray-100 p-4 overflow-auto">{JSON.stringify(response, null, 2)}</pre>
+      </div>}
     </div>
   );
 }
